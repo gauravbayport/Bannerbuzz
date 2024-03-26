@@ -1,0 +1,102 @@
+package testNG;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+
+import javax.imageio.ImageIO;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
+
+import org.apache.commons.io.FileUtils;
+
+
+public class Bannerbuzz {
+	 WebDriver driver;
+	@Test(groups={"smoke"})
+	public void MetaDescription() {
+		
+		ChromeDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.bannerbuzz.com/");
+		driver.getTitle();
+		System.out.println("The Title of the website is:-"+" "+driver.getTitle());
+		// Find the meta description tag
+        String metaDescription = driver.findElement(By.cssSelector("meta[name='description']")).getAttribute("content");
+
+        // Print the meta description
+        System.out.println("Meta Description: " + metaDescription);
+        Assert.assertEquals(metaDescription, "BannerBuzz is your source for custom banner printing, displays, & graphics. Create custom flags for special events, signs with your logo, & more. Get started today!");
+        
+        String ActualMetaDescription = driver.findElement(By.cssSelector("meta[name='description']")).getAttribute("content");
+        String ExpectedMetaDescription = "BannerBuzz is your source for custom banner printing, displays, & graphics. Create custom flags for special events, signs with your logo, & more. Get started today!";
+        
+        // Assertion
+        Assert.assertEquals(ActualMetaDescription, ExpectedMetaDescription);
+        
+        // Print whether assertion passed or failed
+        if (ActualMetaDescription.equals(ExpectedMetaDescription)) {
+            System.out.println("Assertion Passed: Meta Description is correct.");
+        } else {
+            System.out.println("Assertion Failed: Meta Description is incorrect.");
+        }
+
+	try{
+	    driver.quit();
+	   }catch (Exception e){
+	      System.out.println("Nothing to do with it");
+	      }}
+
+@Test(groups={"smoke"})
+public void ChromeBrowser() throws IOException, InterruptedException {
+	ChromeDriver driver=new ChromeDriver();
+	driver.manage().window().maximize();
+    driver.get("https://www.bannerbuzz.com/");
+    Thread.sleep(10000);
+ // Take screenshot of the page (It is working only capture visible part)
+ //  File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+   // FileUtils.copyFile(scrFile, new File("D:\\new\\screenshot4.png"), true);
+    
+   // driver.findElement(By.xpath("//*[@id=\"scrollTopRibbon\"]/div/button")).click();
+    
+    Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
+    ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D:\\new\\screenshot6.png"));
+    
+    try{
+        driver.quit();
+       }catch (Exception e){
+          System.out.println("Nothing to do with it");
+          
+        
+}}
+@Test(enabled=false)
+public void Edge_Browser() throws InterruptedException, IOException {
+EdgeDriver driver=new EdgeDriver();
+driver.manage().window().maximize();
+//driver1.manage().window().maximize();
+driver.get("https://www.bannerbuzz.com/");
+Thread.sleep(10000);
+//driver.findElement(By.xpath("//*[@id=\"scrollTopRibbon\"]/div/button")).click();
+
+Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
+ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D:\\new\\screenshot7.png"));
+
+try{
+    driver.quit();
+   }catch (Exception e){
+      System.out.println("Nothing to do with it");
+}}}
+    
+  

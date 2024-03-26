@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test name="Gaurav">
+    <classes>
+      <class name="testNG.Browser_Launch">
+		  
+		   <groups>
+		  <run>
+			  <include name="smoke"/>
+		  </run>
+	  </groups>
+		  
+      </class>
+      <class name="testNG.Tuesday"/>
+      <class name="testNG.Wednesday"/>
+    </classes>
+  </test> <!-- Test -->
+  <test name="AnotherTest"> <!-- Added another test -->
+   <classes>
+      <class name="testNG.Thursday">
+        <methods>
+          <!-- Exclude specific test methods -->
+          <exclude name="eat"/>
+         
+        </methods>
+      </class>
+   
+    </classes>
+  </test> <!-- Another Test -->
+</suite> <!-- Suite -->

@@ -1,0 +1,23 @@
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
+import io.restassured.RestAssured;
+
+public class Test {
+    public static void main(String[] args) {
+        RestAssured.baseURI = "https://rahulshettyacademy.com";
+
+        given().log().all()
+            .queryParam("key", "qaclick123")
+            .header("Content-Type", "application/json")
+            .body("{\r\n" +
+                    "  \"place_id\": \"5982e8aeed7038f73eade98b2c000722\",\r\n" +
+                    "  \"address\": \"70 winter walk, HDR2\",\r\n" +
+                    "  \"key\": \"qaclick123\"\r\n" +
+                    "}")
+        .when().put("maps/api/place/add/json")
+        .then().assertThat().log().all()
+            .statusCode(200)
+            .body("msg", equalTo("Address successfully updated"));
+    }
+}
