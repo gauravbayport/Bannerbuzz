@@ -4,10 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.FileHandler;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -17,7 +18,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -27,17 +27,19 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
-import org.apache.commons.io.FileUtils;
-
 
 public class Bannerbuzz {
 	 WebDriver driver;
 	@Test()
-	public void MetaDescription() {
-		
+	public void MetaDescription() throws InterruptedException {
+		 {
+			
+		}
 		ChromeDriver driver=new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.bannerbuzz.com/");
+		Thread.sleep(100000);
+		driver.switchTo().alert().dismiss();
 		driver.getTitle();
 		System.out.println("The Title of the website is:-"+" "+driver.getTitle());
 		// Find the meta description tag
@@ -98,14 +100,14 @@ Thread.sleep(10000);
 //driver.findElement(By.xpath("//*[@id=\"scrollTopRibbon\"]/div/button")).click();
 
 Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
-ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D:\\new\\screenshot7.png"));
+ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D:\\new\\screenshot99.png"));
 
 try{
     driver.quit();
    }catch (Exception e){
       System.out.println("Nothing to do with it");
 }}
-@Test()//enabled=false
+@Test(enabled=false)//enabled=false
 public void dropdown() throws InterruptedException {
 	ChromeDriver driver=new ChromeDriver();
 	driver.manage().window().maximize();
@@ -153,7 +155,7 @@ public void dropdown() throws InterruptedException {
 }
 }
 
-@Test()
+@Test(enabled=false)
 public void screenshotlogo() throws InterruptedException, IOException {
 	ChromeDriver driver=new ChromeDriver();
 	driver.manage().window().maximize();
@@ -179,7 +181,7 @@ public void screenshotlogo() throws InterruptedException, IOException {
  ImageIO.write(eleScreenshot, "png", screenshot);
 
  // Copy the element screenshot to disk
- File screenshotLocation = new File("D:\\new\\logo.png");
+ File screenshotLocation = new File("D:\\new\\logo2.png");
  FileUtils.copyFile(screenshot, screenshotLocation);
  
  
@@ -188,6 +190,58 @@ public void screenshotlogo() throws InterruptedException, IOException {
 	    driver.quit();
 	   }catch (Exception e){
 	      System.out.println("Nothing to do with it");
+    
+}}
+
+@Test(enabled=false)
+public void Vinyl_Banner() throws InterruptedException, IOException {
+	ChromeDriver driver=new ChromeDriver();
+	driver.manage().window().maximize();
+    driver.get("https://www.bannerbuzz.com/");
+    Thread.sleep(10000);
+    
+    WebElement ele = driver.findElement(By.xpath("//*[@id=\"headerTop\"]/div[4]/ul/li[1]/a"));
+
+    //Creating object of an Actions class
+    Actions action = new Actions(driver);
+
+    //Performing the mouse hover action on the target element.
+    action.moveToElement(ele).perform();
+    
+    driver.findElement(By.xpath("//*[@id=\"headerTop\"]/div[4]/ul/li[1]/div/ul/li[1]/ul/li/ul[1]/li[2]/a")).click();
+    Thread.sleep(1000);
+    driver.findElement(By.xpath("//*[@id=\"errorScrollHere\"]/div/div/div[1]/div[2]/div[2]/div[2]/div[3]/div/div/div/div/div/div[2]/label[8]/span")).click();
+    
+}
+@Test(enabled=false)
+public void Coupon() throws InterruptedException, IOException {
+	ChromeDriver driver=new ChromeDriver();
+	driver.manage().window().maximize();
+  //  driver.get("https://www.bannerbuzz.com/feather-flags/p");
+	 driver.get("https://www.bannerbuzz.com/flags");
+	 
+	// List<WebElement> encounterDates = driver.findElements(By.xpath("/html/body/div[1]/div[2]/div[4]/div[3]/div[2]/div/div[2]/div/div[53]"));
+	 //for (WebElement ele : encounterDates) 
+	   //  System.out.println(ele.getAttribute("innerHTML"));
+	 
+/*	 List <WebElement> elements = driver.findElements(By.xpath("/html/body/div[1]/div[2]/div[4]/div[3]/div[2]"));
+	 for (WebElement e: elements)  
+	 {           
+	       System.out.println(e.getAttribute("innerText"));    
+	 } */
+	 
+	 List<WebElement> totlink=driver.findElements(By.xpath("//a[@class='cProductName']"));
+		
+	//	
+		System.out.println("Total No. of Links :" +totlink.size());
+		
+		for(WebElement link: totlink)
+		{
+			System.out.println(link.getText());
+	 
+	 
+	 
+
     
 }}}
     

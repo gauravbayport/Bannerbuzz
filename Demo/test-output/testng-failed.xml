@@ -5,7 +5,7 @@
     <classes>
       <class name="testNG.Bannerbuzz">
         <methods>
-          <include name="dropdown"/>
+          <include name="MetaDescription"/>
         </methods>
       </class> <!-- testNG.Bannerbuzz -->
     </classes>
